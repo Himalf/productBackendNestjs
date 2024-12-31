@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Post,
@@ -31,14 +32,19 @@ export class CategoryController {
   }
   @Put(':id')
   async update(
-    @Param('id') id: number,
-    createCategoryDto: { name: string },
+    @Param('id', ParseIntPipe) id: number,
+    @Body() createCategoryDto: { name: string },
   ): Promise<Category> {
+    const category = this.categoryService.update(createCategoryDto.name, id);
     return this.categoryService.update(createCategoryDto.name, id);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<DeleteResult> {
-    return this.categoryService.delete(id);
+    const deleteCategory = this.categoryService.delete(id);
+    if (id) {
+      throw new NotFoundException(`id: ${id} not Found `);
+    }
+    return deleteCategory;
   }
 }
