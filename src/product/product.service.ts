@@ -25,11 +25,12 @@ export class ProductService {
     });
   }
   async update(
-    _createProductDto: CreateProductDto,
+    createProductDto: CreateProductDto,
     id: number,
   ): Promise<Product> {
     const product = await this.productRepository.findOne({ where: { id } });
     if (product) {
+      Object.assign(product, createProductDto);
       return this.productRepository.save(product);
     }
   }
