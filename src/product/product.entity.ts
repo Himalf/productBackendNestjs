@@ -7,6 +7,8 @@ export class Product {
   @Column()
   title: string;
   @Column()
+  price: number;
+  @Column()
   description: string;
   @Column()
   image: string;
