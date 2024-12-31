@@ -11,6 +11,9 @@ export class Product {
   @Column()
   image: string;
 
-  @ManyToOne(() => Category, (category) => category.products)
+  @ManyToOne(() => Category, (category) => category.products, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   category: Category;
 }
