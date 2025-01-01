@@ -7,8 +7,15 @@ import { CategoryModule } from './category/category.module';
 import { ConfigModule } from '@nestjs/config';
 import { UploadsController } from './uploads/uploads.controller';
 import { UploadsService } from './uploads/uploads.service';
+import { UploadsModule } from './uploads/uploads.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'), // Serve files from the "uploads" folder
+      serveRoot: '/uploads/', // The URL route where the files will be served from
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
@@ -25,6 +32,7 @@ import { UploadsService } from './uploads/uploads.service';
     }),
     ProductModule,
     CategoryModule,
+    UploadsModule,
   ],
   controllers: [UploadsController],
   providers: [UploadsService],

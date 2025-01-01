@@ -16,7 +16,7 @@ export class UploadsController {
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
-        destination: './uploads',
+        destination: './upload',
         filename: (req, file, cb) => {
           const fileExtName = path.extname(file.originalname);
           const filename = `${uuid()}${fileExtName}`;
