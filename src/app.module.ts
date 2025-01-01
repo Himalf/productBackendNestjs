@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ProductModule } from './product/product.module';
-import { CategoryController } from './category/category.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './product/product.entity';
 import { Category } from './category/category.entity';
 import { CategoryModule } from './category/category.module';
 import { ConfigModule } from '@nestjs/config';
+import { UploadsController } from './uploads/uploads.controller';
+import { UploadsService } from './uploads/uploads.service';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,5 +26,7 @@ import { ConfigModule } from '@nestjs/config';
     ProductModule,
     CategoryModule,
   ],
+  controllers: [UploadsController],
+  providers: [UploadsService],
 })
 export class AppModule {}
